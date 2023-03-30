@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #btn {
+        margin : 20px;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+      }
+      #btn:hover {
+        background-color: #0069d9;
+        box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+      }
+      .button-list {
+        list-style: none; 
+        display: flex; 
+        justify-content: center; 
+      }
+      .button-list li {
+        margin: 0 10px; 
+      }
+      .title {
+        font-size: 5em; 
+        text-align: center; 
+      }
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .image-container img {
+        padding: 50px;
+        max-width: 500px;
+        height: auto;
+        margin: 10px;
+      }
+      .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="button-list">
+        <li><button id="btn" onclick="window.location.href='/SQL'">Injection SQL</button></li>
+        <li><button id="btn" >Injection CSS</button></li>
+        <li><button id="btn" onclick="window.location.href='/mail'">Mail OTP</button></li>
+      </ul>
+
+      <h1 class="title">Sécu Web</h1>
+
+      <div class="image-container">
+        <img src="https://www.nestorfactory.com/app/uploads/2021/06/CADCOD_01.png">
+        <img src="https://www.reichstett.fr/dynamic/images/actualites/cac_/policier_detoure!_206x319!_3!_0x0!_0!_FFFFFF.png">
+        <img src="https://upload.wikimedia.org/wikipedia/fr/5/5e/Logo_mot_de_passe_2.png">
+      </div>
+
+  </body>
+</html>
