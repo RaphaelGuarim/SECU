@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import psycopg2
 import hashlib
 from flask_mail import Mail, Message
@@ -7,6 +7,7 @@ import pyotp
 import datetime,timedelta
 
 app = Flask(__name__)
+
 
 nom = ""
 mdp = ""
@@ -27,6 +28,10 @@ Email = Mail(app)
 def h():
     return render_template("home.html")
 
+@app.route('/home')
+def home_connect():
+    return render_template("home_connect.html")
+
 @app.route('/mail')
 def mail():
     return render_template("home_mail.html")
@@ -41,24 +46,29 @@ def postmail():
 
 @app.route('/connectHome' ,methods=['POST','GET'])
 def conn():
-    global nom
-    global mdp
-    global verif
-    
+    global nom, mdp, verif
+
+    print("verif = ", verif)
     if (verif==False):
 
         nom = request.form['name'] 
         mdp = request.form['password']
+        
+        # Parce que guyader rime avec galère, mon port n'est pas celui par défaut
+        if nom == 'lguyader': PORT : int = 5433
+        else: PORT : int = 5432
+        
         try:
             conn = psycopg2.connect(
                 host="localhost",
+                port=PORT,
                 database="secu1",
                 user=nom,
                 password=mdp
             )
             if conn is not None:
-                conn.close()
                 verif= True
+                conn.close()
         except (Exception, psycopg2.DatabaseError) as error:
             print("Erreur")
             return render_template("home.html")
@@ -184,6 +194,13 @@ def submit2():
     cursor.close()
     conn.close()
     return render_template('home_SQL.html')
+
+@app.route('/deconnexion', methods=['GET', 'POST'])
+def deconnexion():
+    global nom, mdp, verif
+
+    nom = "";    mdp = "";    verif = False
+    return redirect("/")
 
 
 if __name__ == '__main__':
