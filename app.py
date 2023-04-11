@@ -5,6 +5,7 @@ import hashlib
 from flask_mail import Mail, Message
 import pyotp
 import datetime,timedelta
+import connection as co
 
 app = Flask(__name__)
 
@@ -26,7 +27,13 @@ Email = Mail(app)
 
 @app.route('/')
 def h():
-    return render_template("home.html")
+    global verif
+
+    # Si non connecté, home.html, sinon home_connect
+    if verif == False:
+        return render_template("home.html")
+    else:
+        return render_template("home_connect.html")
 
 @app.route('/home')
 def home_connect():
@@ -53,19 +60,9 @@ def conn():
 
         nom = request.form['name'] 
         mdp = request.form['password']
-        
-        # Parce que guyader rime avec galère, mon port n'est pas celui par défaut
-        if nom == 'lguyader': PORT : int = 5433
-        else: PORT : int = 5432
-        
+
         try:
-            conn = psycopg2.connect(
-                host="localhost",
-                port=PORT,
-                database="secu1",
-                user=nom,
-                password=mdp
-            )
+            conn = co.connect(nom, mdp)
             if conn is not None:
                 verif= True
                 conn.close()
@@ -74,17 +71,27 @@ def conn():
             return render_template("home.html")
     return render_template("home_connect.html")
 
-
 @app.route('/connect', methods=['POST','GET'])
 def home():
     return render_template("home_connect.html")
 
+@app.route('/Part2', methods=['POST','GET'])
+def Part2():
+    global nom, mdp, verif
+
+    if verif == False:  return redirect("/") # Si t'es pas co, rentre chez toi !
+
+    conn = co.connect(nom, mdp) 
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT pseudo, content FROM commentaire")
+
+    return render_template("Partie2_failleXSS/failleXSS.html", all_contents = cursor.fetchall())
+
 
 @app.route('/mail_conn',methods=['POST','GET'])
 def mail_conn():
-    
-    global expiration
-    global otp_code
+    global nom, mdp, expiration, otp_code
     
     name = request.form['name'] 
     password = request.form['password']
@@ -94,12 +101,7 @@ def mail_conn():
     password_hash = hash_object.hexdigest()
     
     try:
-        conn = psycopg2.connect(
-            host="localhost",
-            database="secu1",
-            user=nom,
-            password=mdp
-        )
+        conn = co.connect(nom, mdp)
     except (Exception, psycopg2.DatabaseError) as error:
             print("Erreur")
             return render_template("home_mail.html")
@@ -145,24 +147,23 @@ def otp():
 
 @app.route('/submit', methods=['POST'])
 def submit():
+    global nom, mdp
+
     name = request.form['name'] 
     password = request.form['password']
     
-    conn = psycopg2.connect(
-        host="localhost",
-        database="secu1",
-        user=nom,
-        password=mdp
-    )   
-
+    conn = co.connect(nom, mdp)
     cursor = conn.cursor()
     
-    # Requete sécurisée
-    cursor.execute("SELECT * FROM connexion WHERE name LIKE %s AND password LIKE %s ",(name,password))
-    
-    results = cursor.fetchall()
-    if (len(results)!= 0):
-        return render_template('connected.html')
+    try:
+        # Requete sécurisée
+        cursor.execute("SELECT * FROM connexion WHERE name LIKE %s AND password LIKE %s ",(name,password))
+
+        results = cursor.fetchall()
+        if (len(results)!= 0):
+            return render_template('connected.html')
+    except:
+        pass
     
     cursor.close()
     conn.close()
@@ -170,27 +171,25 @@ def submit():
 
 @app.route('/submit2', methods=['POST'])
 def submit2():
+    global nom, mdp
     name = request.form['name'] 
     password = request.form['password']
 
-    
-    conn = psycopg2.connect(
-        host="localhost",
-        database="secu1",
-        user=nom,
-        password=mdp
-    )   
+    conn = co.connect(nom, mdp) 
     
     cursor = conn.cursor()
     
-    # Ancienne requète non sécurisée
-    requete = "SELECT * FROM connexion WHERE name LIKE '"+ name +"' AND password LIKE '"+password+"' "
-    cursor.execute(requete)
-    
-    results = cursor.fetchall()
-    if (len(results)!= 0):
-        return render_template('connected.html')
-    
+    try:
+        # Ancienne requète non sécurisée
+        requete = "SELECT * FROM connexion WHERE name LIKE '"+ name +"' AND password LIKE '"+password+"' "
+        cursor.execute(requete)
+        
+        results = cursor.fetchall()
+        if (len(results)!= 0):
+            return render_template('connected.html')
+    except:
+        pass
+
     cursor.close()
     conn.close()
     return render_template('home_SQL.html')
@@ -202,6 +201,26 @@ def deconnexion():
     nom = "";    mdp = "";    verif = False
     return redirect("/")
 
+# Fonction d'ajout de commentaire
+@app.route('//Part2_submit', methods=['GET', 'POST'])
+def Partie2_failleXSS():
+    global verif, nom, mdp
+    
+    # S'il n'est pas log, go to home
+    if verif == False: return redirect("/")
+        
+    conn = co.connect(nom, mdp) 
+    cursor = conn.cursor()
+
+    # Si post, on insert le commentaire
+    if request.method == 'POST':
+        requete = "INSERT INTO commentaire VALUES (%s, %s);"
+        cursor.execute(requete, (request.form.get('name'), request.form.get('content')))
+        conn.commit()
+
+    # On affiche mtn tous les commentaires
+    cursor.execute("SELECT pseudo, content FROM commentaire")
+    return render_template("Partie2_failleXSS/failleXSS.html", all_contents = cursor.fetchall())
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,7 +2,7 @@
 <html>
   <head>
     <button id="btn" onclick="window.location.href='/connectHome'">Accueil</button>
-    <h1>Mail OTP</h1>
+    <h1>Faille XSS</h1>
     <style>
       body {
         display: flex;
@@ -26,7 +26,7 @@
         margin: 20px
       }
       /* Style des champs */
-      input[type=text], input[type=password], input[type=email] {
+      input[type=text], input[type=password] {
         padding: 8px;
         margin: 5px;
         width: 100%;
@@ -70,11 +70,28 @@
   <body>
     
     <div class='container'>
-      <form method="POST" action="/OTP">
-        <h2>Connexion</h2>
-        <label for="password">Mot de passe :</label>
-        <input type="password" name="password" placeholder="Entrez votre mot de passe" required>
+      <form method="POST" action="/Part2_submit">
+        <label for="username">Nom : </label>
+        <input type="text" name="name" placeholder="Entrez un pseudo quelconque" required>
+        <label for="commentaire">Commentaire :</label>
+        <textarea name="content" id="content" cols="30" rows="10"></textarea>
         <input type="submit" value="Envoyer">
+    </div>
+    <div class='container'>
+      <form action=""></form>  <!-- NE PAS SUPP CETTE LIGNE -->
+      <form>
+        <h2>Non sécurisé</h2>
+        <h3>Liste des commentaires : </h3>
+        {% for user, content in all_contents %}
+          <p>{{user}} : {{content|safe}}</p>
+        {% endfor %}
+      </form>
+      <form>
+        <h2>Sécurisé</h2>
+        <h3>Liste des commentaires : </h3>
+        {% for user, content in all_contents %}
+          <p>{{user}} : {{content}}</p>
+        {% endfor %}
       </form>
     </div>
   </body>
