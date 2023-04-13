@@ -6,8 +6,41 @@ from flask_mail import Mail, Message
 import pyotp
 import datetime,timedelta
 import connection as co
+import logging
+import os
+from dotenv import load_dotenv  # Importation de la bibliothèque python-dotenv pour charger les variables d'environnement
 
+# log non séccurisé
+"""# création du repertoire des logs
+if not os.path.exists('logs'):
+    os.makedirs('logs')
+
+# configurer le logger ----------
+logging.basicConfig(filename='logs/app.log', level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')"""
+
+
+# log sécurisé
+
+# Chargement des variables d'environnement depuis le fichier .env
+load_dotenv()
+
+# Configuration de l'application Flask
 app = Flask(__name__)
+
+# Configuration du système de journalisation
+if not os.path.exists('logs'):  # Vérifie si le dossier "logs" n'existe pas encore
+    os.makedirs('logs')  # Si ce n'est pas le cas, crée le dossier "logs" dans le répertoire courant
+
+# Récupération du nom et du niveau de log depuis les variables d'environnement, sinon utilisation des valeurs par défaut
+log_file = os.getenv("LOG_FILE") or 'logs/app.log'
+log_level = os.getenv("LOG_LEVEL") or logging.INFO
+
+# Configuration de la bibliothèque logging avec le nom et le niveau de log
+logging.basicConfig(
+    filename=log_file,  # Nom du fichier de log
+    level=log_level,  # Niveau de log
+    format='%(asctime)s %(levelname)s: %(message)s'  # Format des messages de log
+)
 
 
 nom = ""

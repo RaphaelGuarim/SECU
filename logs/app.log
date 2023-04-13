@@ -1,0 +1,62 @@
+2023-04-12 16:25:18,893 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-04-12 16:25:18,893 INFO: [33mPress CTRL+C to quit[0m
+2023-04-12 16:25:18,895 INFO:  * Restarting with stat
+2023-04-12 16:25:19,252 WARNING:  * Debugger is active!
+2023-04-12 16:25:19,254 INFO:  * Debugger PIN: 198-506-563
+2023-04-12 16:25:30,965 INFO: 127.0.0.1 - - [12/Apr/2023 16:25:30] "GET / HTTP/1.1" 200 -
+2023-04-12 16:25:33,467 INFO: 127.0.0.1 - - [12/Apr/2023 16:25:33] "POST /connectHome HTTP/1.1" 200 -
+2023-04-12 16:25:37,721 INFO: 127.0.0.1 - - [12/Apr/2023 16:25:37] "GET /SQL HTTP/1.1" 200 -
+2023-04-12 16:36:44,327 INFO:  * Detected change in 'c:\\Users\\Vassili\\Documents\\GitHub\\SECU\\app.py', reloading
+2023-04-12 16:36:44,416 INFO:  * Restarting with stat
+2023-04-12 16:36:44,807 WARNING:  * Debugger is active!
+2023-04-12 16:36:44,809 INFO:  * Debugger PIN: 198-506-563
+2023-04-12 16:36:54,098 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-04-12 16:36:54,098 INFO: [33mPress CTRL+C to quit[0m
+2023-04-12 16:36:54,100 INFO:  * Restarting with stat
+2023-04-12 16:36:54,440 WARNING:  * Debugger is active!
+2023-04-12 16:36:54,442 INFO:  * Debugger PIN: 198-506-563
+2023-04-12 16:37:09,293 INFO: 127.0.0.1 - - [12/Apr/2023 16:37:09] "GET /SQL HTTP/1.1" 200 -
+2023-04-12 16:37:11,991 INFO: 127.0.0.1 - - [12/Apr/2023 16:37:11] "GET / HTTP/1.1" 200 -
+2023-04-12 16:37:14,529 INFO: 127.0.0.1 - - [12/Apr/2023 16:37:14] "POST /connectHome HTTP/1.1" 200 -
+2023-04-12 18:56:20,560 INFO: 127.0.0.1 - - [12/Apr/2023 18:56:20] "[33mGET /logs/app.log HTTP/1.1[0m" 404 -
+2023-04-13 10:18:19,566 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-04-13 10:18:19,566 INFO: [33mPress CTRL+C to quit[0m
+2023-04-13 10:18:19,568 INFO:  * Restarting with stat
+2023-04-13 10:18:19,967 WARNING:  * Debugger is active!
+2023-04-13 10:18:19,970 INFO:  * Debugger PIN: 198-506-563
+2023-04-13 10:18:31,674 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:31] "GET / HTTP/1.1" 200 -
+2023-04-13 10:18:32,091 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:32] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-04-13 10:18:37,589 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:37] "POST /connectHome HTTP/1.1" 200 -
+2023-04-13 10:18:45,888 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:45] "GET /mail HTTP/1.1" 200 -
+2023-04-13 10:18:49,290 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:49] "GET /connectHome HTTP/1.1" 200 -
+2023-04-13 10:18:50,223 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:50] "[35m[1mGET /Part2 HTTP/1.1[0m" 500 -
+2023-04-13 10:18:50,425 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:50] "GET /Part2?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2023-04-13 10:18:50,427 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:50] "GET /Part2?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2023-04-13 10:18:50,441 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:50] "GET /Part2?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2023-04-13 10:18:50,457 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:50] "[36mGET /Part2?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-04-13 10:18:52,830 INFO: 127.0.0.1 - - [13/Apr/2023 10:18:52] "GET /SQL HTTP/1.1" 200 -
+2023-04-13 10:19:00,663 INFO: 127.0.0.1 - - [13/Apr/2023 10:19:00] "POST /submit HTTP/1.1" 200 -
+2023-04-13 10:19:02,311 INFO: 127.0.0.1 - - [13/Apr/2023 10:19:02] "POST /submit2 HTTP/1.1" 200 -
+2023-04-13 10:20:46,367 INFO: 127.0.0.1 - - [13/Apr/2023 10:20:46] "GET / HTTP/1.1" 200 -
+2023-04-13 10:20:53,530 INFO: 127.0.0.1 - - [13/Apr/2023 10:20:53] "[32mPOST /deconnexion HTTP/1.1[0m" 302 -
+2023-04-13 10:20:53,538 INFO: 127.0.0.1 - - [13/Apr/2023 10:20:53] "GET / HTTP/1.1" 200 -
+2023-04-13 10:20:57,112 INFO: 127.0.0.1 - - [13/Apr/2023 10:20:57] "POST /connectHome HTTP/1.1" 200 -
+2023-04-13 10:21:03,162 INFO: 127.0.0.1 - - [13/Apr/2023 10:21:03] "GET /mail HTTP/1.1" 200 -
+2023-04-13 10:23:04,803 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-04-13 10:23:04,804 INFO: [33mPress CTRL+C to quit[0m
+2023-04-13 10:23:04,807 INFO:  * Restarting with stat
+2023-04-13 10:23:05,237 WARNING:  * Debugger is active!
+2023-04-13 10:23:05,239 INFO:  * Debugger PIN: 198-506-563
+2023-04-13 10:30:22,733 INFO: 127.0.0.1 - - [13/Apr/2023 10:30:22] "[35m[1mGET /connectHome HTTP/1.1[0m" 500 -
+2023-04-13 10:30:22,932 INFO: 127.0.0.1 - - [13/Apr/2023 10:30:22] "GET /connectHome?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2023-04-13 10:30:22,933 INFO: 127.0.0.1 - - [13/Apr/2023 10:30:22] "GET /connectHome?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2023-04-13 10:30:22,950 INFO: 127.0.0.1 - - [13/Apr/2023 10:30:22] "GET /connectHome?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2023-04-13 10:30:22,972 INFO: 127.0.0.1 - - [13/Apr/2023 10:30:22] "[36mGET /connectHome?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-04-13 10:42:17,031 INFO:  * Detected change in 'c:\\Users\\Vassili\\Documents\\GitHub\\SECU\\app.py', reloading
+2023-04-13 10:42:17,081 INFO:  * Restarting with stat
+2023-04-13 10:42:17,506 WARNING:  * Debugger is active!
+2023-04-13 10:42:17,508 INFO:  * Debugger PIN: 198-506-563
