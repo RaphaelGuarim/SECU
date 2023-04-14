@@ -1,16 +1,14 @@
-
 from flask import Flask, render_template, request, redirect
 import psycopg2
 import hashlib
 from flask_mail import Mail, Message
 import pyotp
-import datetime,timedelta
+import datetime
 import connection as co
 import logging
 import os
 from dotenv import load_dotenv  # Importation de la bibliothèque python-dotenv pour charger les variables d'environnement
 from flask import Flask, render_template, request
-from werkzeug.security import generate_password_hash
 
 
 # ----------- ----------- ----------- ----------- 

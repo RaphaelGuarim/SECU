@@ -534,3 +534,35 @@
 2023-04-14 09:49:56,291 INFO: 127.0.0.1 - - [14/Apr/2023 09:49:56] "[33mGET /img/01.jpg HTTP/1.1[0m" 404 -
 2023-04-14 09:52:27,244 INFO: 127.0.0.1 - - [14/Apr/2023 09:52:27] "GET / HTTP/1.1" 200 -
 2023-04-14 09:52:34,481 INFO: 127.0.0.1 - - [14/Apr/2023 09:52:34] "POST /connectHome HTTP/1.1" 200 -
+2023-04-14 10:23:05,230 INFO:  * Detected change in 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\timedelta\\__init__.py', reloading
+2023-04-14 10:23:05,653 INFO:  * Restarting with watchdog (windowsapi)
+2023-04-14 10:23:06,714 WARNING:  * Debugger is active!
+2023-04-14 10:23:06,740 INFO:  * Debugger PIN: 141-521-859
+2023-04-14 10:23:08,481 INFO:  * Detected change in 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\werkzeug\\security.py', reloading
+2023-04-14 10:23:08,914 INFO:  * Restarting with watchdog (windowsapi)
+2023-04-14 10:23:09,618 WARNING:  * Debugger is active!
+2023-04-14 10:23:09,635 INFO:  * Debugger PIN: 141-521-859
+2023-04-14 10:41:39,986 INFO:  * Detected change in 'c:\\Users\\User\\Documents\\GitHub\\SECU\\app.py', reloading
+2023-04-14 10:41:39,997 INFO:  * Detected change in 'c:\\Users\\User\\Documents\\GitHub\\SECU\\app.py', reloading
+2023-04-14 10:41:39,999 INFO:  * Detected change in 'c:\\Users\\User\\Documents\\GitHub\\SECU\\app.py', reloading
+2023-04-14 10:41:41,260 INFO:  * Restarting with watchdog (windowsapi)
+2023-04-14 10:41:42,251 WARNING:  * Debugger is active!
+2023-04-14 10:41:42,266 INFO:  * Debugger PIN: 141-521-859
+2023-04-14 11:52:02,144 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-04-14 11:52:02,146 INFO: [33mPress CTRL+C to quit[0m
+2023-04-14 11:52:02,182 INFO:  * Restarting with watchdog (windowsapi)
+2023-04-14 11:52:03,113 WARNING:  * Debugger is active!
+2023-04-14 11:52:03,133 INFO:  * Debugger PIN: 141-521-859
+2023-04-14 11:52:06,227 INFO: 127.0.0.1 - - [14/Apr/2023 11:52:06] "GET / HTTP/1.1" 200 -
+2023-04-14 11:52:15,180 INFO: 127.0.0.1 - - [14/Apr/2023 11:52:15] "POST /connectHome HTTP/1.1" 200 -
+2023-04-14 11:53:07,422 INFO: 127.0.0.1 - - [14/Apr/2023 11:53:07] "GET /Part4 HTTP/1.1" 200 -
+2023-04-14 11:53:15,146 INFO: 127.0.0.1 - - [14/Apr/2023 11:53:15] "POST /Partie4/submitConnection HTTP/1.1" 200 -
+2023-04-14 11:53:31,747 INFO: 127.0.0.1 - - [14/Apr/2023 11:53:31] "POST /Partie4/submitConnection HTTP/1.1" 200 -
+2023-04-14 11:53:35,151 INFO: 127.0.0.1 - - [14/Apr/2023 11:53:35] "POST /Partie4/submitConnection HTTP/1.1" 200 -
+2023-04-14 11:53:37,520 INFO: 127.0.0.1 - - [14/Apr/2023 11:53:37] "POST /Partie4/submitConnection HTTP/1.1" 200 -
+2023-04-14 11:54:02,485 INFO: 127.0.0.1 - - [14/Apr/2023 11:54:02] "POST /Partie4/submitConnection HTTP/1.1" 200 -
+2023-04-14 11:54:40,643 INFO: 127.0.0.1 - - [14/Apr/2023 11:54:40] "POST /Partie4/submitConnection HTTP/1.1" 200 -
+2023-04-14 11:54:42,736 INFO: 127.0.0.1 - - [14/Apr/2023 11:54:42] "POST /Partie4/submitConnection HTTP/1.1" 200 -
+2023-04-14 11:56:46,086 INFO: 127.0.0.1 - - [14/Apr/2023 11:56:46] "POST /Partie4/submitModifSecu HTTP/1.1" 200 -
+2023-04-14 14:07:30,112 INFO:  * Detected change in 'c:\\Users\\User\\Documents\\GitHub\\SECU\\app.py', reloading
