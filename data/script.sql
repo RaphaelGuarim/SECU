@@ -33,6 +33,8 @@ VALUES ('client2', 'f4f263e439cf40925e6a412387a9472a6773c2580212a4fb50d224d3a817
 
 -- Creation de la table
 CREATE TABLE commentaire (
-  id integer REFERENCES connexion (id),
+  pseudo VARCHAR,
   content VARCHAR
 );
+
+INSERT INTO commentaire VALUES ('', '<h1>Super site et css</h1>');

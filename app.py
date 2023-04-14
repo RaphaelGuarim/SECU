@@ -9,6 +9,28 @@ import connection as co
 import logging
 import os
 from dotenv import load_dotenv  # Importation de la bibliothèque python-dotenv pour charger les variables d'environnement
+from flask import Flask, render_template, request
+from werkzeug.security import generate_password_hash
+
+
+# ----------- ----------- ----------- ----------- 
+# ----------- CONSTANTES
+# ----------- ----------- ----------- ----------- 
+
+
+nom = ""
+mdp = ""
+verif = False
+expiration = None
+otp_code = None
+
+
+
+
+# ----------- ----------- ----------- ----------- 
+# ----------- PARTIE 5 : LOG
+# ----------- ----------- ----------- ----------- 
+
 
 # log non séccurisé
 """# création du repertoire des logs
@@ -43,12 +65,13 @@ logging.basicConfig(
 )
 
 
-nom = ""
-mdp = ""
-verif = False
-expiration = None
-otp_code = None
 
+
+
+
+# ----------- ----------- ----------- ----------- 
+# ----------- MAIL
+# ----------- ----------- ----------- ----------- 
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -57,6 +80,9 @@ app.config['MAIL_USERNAME'] = 'raphaguarim5@gmail.com'
 app.config['MAIL_PASSWORD'] = 'vmpdwvgivpvtcmxz'
 
 Email = Mail(app)
+
+
+
 
 @app.route('/')
 def h():
@@ -108,19 +134,6 @@ def conn():
 def home():
     return render_template("home_connect.html")
 
-@app.route('/Part2', methods=['POST','GET'])
-def Part2():
-    global nom, mdp, verif
-
-    if verif == False:  return redirect("/") # Si t'es pas co, rentre chez toi !
-
-    conn = co.connect(nom, mdp) 
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT pseudo, content FROM commentaire")
-
-    return render_template("Partie2_failleXSS/failleXSS.html", all_contents = cursor.fetchall())
-
 
 @app.route('/mail_conn',methods=['POST','GET'])
 def mail_conn():
@@ -132,7 +145,7 @@ def mail_conn():
     encoded_password = password.encode('utf-8')
     hash_object = hashlib.sha256(encoded_password)
     password_hash = hash_object.hexdigest()
-    
+
     try:
         conn = co.connect(nom, mdp)
     except (Exception, psycopg2.DatabaseError) as error:
@@ -155,7 +168,7 @@ def mail_conn():
         expiration = otp_created_at + datetime.timedelta(minutes=5)
         
         # Envoi du mail
-        msg = Message('Hello', sender='raphaguarim5@gmail.com', recipients=[results[0][0]])
+        msg = Message('Hello', sender='raphaguarim5@gmail.com', recipients=[results[0][1]])
         msg.body = msg.body = f"Votre OTP est : {otp_code}. Il est valable jusqu'à {expiration.strftime('%H:%M:%S')}."
         Email.send(msg)
         return render_template('OTP.html')
@@ -189,8 +202,12 @@ def submit():
     cursor = conn.cursor()
     
     try:
+        encoded_password = password.encode('utf-8')
+        hash_object = hashlib.sha256(encoded_password)
+        password_hash = hash_object.hexdigest()
+        
         # Requete sécurisée
-        cursor.execute("SELECT * FROM connexion WHERE name LIKE %s AND password LIKE %s ",(name,password))
+        cursor.execute("SELECT * FROM connexion WHERE name LIKE %s AND password LIKE %s ",(name,password_hash))
 
         results = cursor.fetchall()
         if (len(results)!= 0):
@@ -208,13 +225,16 @@ def submit2():
     name = request.form['name'] 
     password = request.form['password']
 
-    conn = co.connect(nom, mdp) 
-    
+    conn = co.connect(nom, mdp)
     cursor = conn.cursor()
     
     try:
+        encoded_password = password.encode('utf-8')
+        hash_object = hashlib.sha256(encoded_password)
+        password_hash = hash_object.hexdigest()
+        
         # Ancienne requète non sécurisée
-        requete = "SELECT * FROM connexion WHERE name LIKE '"+ name +"' AND password LIKE '"+password+"' "
+        requete = "SELECT * FROM connexion WHERE name LIKE '"+ name +"' AND password LIKE '"+password_hash+"' "
         cursor.execute(requete)
         
         results = cursor.fetchall()
@@ -233,6 +253,26 @@ def deconnexion():
 
     nom = "";    mdp = "";    verif = False
     return redirect("/")
+
+
+
+# ----------- ----------- ----------- ----------- 
+# ----------- PARTIE 2 : Faille XSS
+# ----------- ----------- ----------- ----------- 
+
+@app.route('/Part2', methods=['POST','GET'])
+def Part2():
+    global nom, mdp, verif
+
+    if verif == False:  return redirect("/") # Si t'es pas co, rentre chez toi !
+
+    conn = co.connect(nom, mdp) 
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT pseudo, content FROM commentaire")
+
+    return render_template("Partie2_failleXSS/failleXSS.html", all_contents = cursor.fetchall())
+
 
 # Fonction d'ajout de commentaire
 @app.route('//Part2_submit', methods=['GET', 'POST'])
@@ -255,9 +295,133 @@ def Partie2_failleXSS():
     cursor.execute("SELECT pseudo, content FROM commentaire")
     return render_template("Partie2_failleXSS/failleXSS.html", all_contents = cursor.fetchall())
 
+
+
+# ----------- ----------- ----------- ----------- 
+# ----------- PARTIE 4 : Form contrôle front et contrôle middle des données
+# ----------- ----------- ----------- ----------- 
+
+@app.route('/Part4', methods=['GET'])
+def Part4():
+    return render_template('/Partie4_Contrôle_front_middle_data/connection.html')
+
+
+global part4_id; part4_id : int | None
+
+
+# Permet de se co à un profil
+@app.route('/Partie4/submitConnection', methods=['POST'])
+def Part4_submitConnection():
+    global part4_id, nom, mdp
+
+    name = request.form['name'] 
+    password = request.form['password']
+    
+    conn = co.connect(nom, mdp)
+    cursor = conn.cursor()
+    
+    try:
+        # Requete sécurisée
+        encoded_password = password.encode('utf-8')
+        hash_object = hashlib.sha256(encoded_password)
+        password_hash = hash_object.hexdigest()
+        
+        cursor.execute("SELECT * FROM connexion WHERE name LIKE %s AND password LIKE %s ",(name,password_hash))
+
+        results = cursor.fetchall()
+        if (len(results)!= 0):
+            part4_id = int(results[0][0])
+        else : 
+            cursor.close()
+            conn.close()
+            return "Le compte n'existe pas"
+    except:
+        pass
+    
+    print("Partie4/submitConnection : " , part4_id)
+    cursor.close()
+    conn.close()
+    return render_template('/Partie4_Contrôle_front_middle_data/modifierCompte.html')
+
+
+# Permet de modifier son profil sans sécurité
+@app.route('/Partie4/submitModifNonSecu', methods=['POST'])
+def Part4_submitModifNonSecu():
+    global part4_id
+
+    print("Partie4/submitModifNonSecu : " , part4_id)
+
+    # Variables locales
+    username : str = request.form['username']
+    password : str = request.form['password']
+    
+    # Hachage du mdp
+    encoded_password = password.encode('utf-8')
+    hash_object = hashlib.sha256(encoded_password)
+    password_hash = hash_object.hexdigest()
+    
+    # Modif
+    conn = co.connect(nom, mdp)
+    cursor = conn.cursor()
+
+    try:
+        if part4_id != None:
+            cursor.execute("update connexion set name = %s, password = %s where id = %s;",(username,password_hash, part4_id))
+            conn.commit()
+            part4_id = None
+    except:
+        pass
+
+    cursor.close()
+    conn.close()
+    return render_template('/Partie4_Contrôle_front_middle_data/connection.html')
+
+
+# Permet de modifier son profil en sécurité
+@app.route('/Partie4/submitModifSecu', methods=['POST'])
+def Part4_submitModifSecu():
+    global part4_id, nom, mdp
+
+    # Variables locales
+    username = request.form['username']
+    password = request.form['password']
+
+    # Vérif coté client pour empêcher les champs vides
+    if not username or not password:
+        return 'Veuillez remplir tous les champs'
+
+    # Vérif coté serveur pour empêcher l'enregistrement des champs vides
+    if not username.strip() or not password.strip():
+        return 'Veuillez remplir tous les champs'
+
+    # Hachage du mdp
+    encoded_password = password.encode('utf-8')
+    hash_object = hashlib.sha256(encoded_password)
+    password_hash = hash_object.hexdigest()
+
+    # Modif
+    conn = co.connect(nom, mdp)
+    cursor = conn.cursor()
+
+    try:
+        if part4_id != None:
+            cursor.execute("update connexion set name = %s, password = %s where id = %s;",(username,password_hash, part4_id))
+            conn.commit()
+            part4_id = None
+    except:
+        pass
+
+    cursor.close()
+    conn.close()
+    return render_template('/Partie4_Contrôle_front_middle_data/connection.html')
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-    # Test
-    # Name : client | Password : mdp
-    # ' OR 1=1 --
