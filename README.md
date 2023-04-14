@@ -36,6 +36,10 @@ pip install -r requirements.txt
 
 ## **Utilisation**
 
+- Lancez le fichier app.py
+
+- Aller sur votre **http://localhost:5000/**
+
 1ère page : Identifiez-vous avec vos **ID PostgreSQL** pour que nous puissions accéder à votre BDD.
 
 Pour le reste. Identifiez-vous avec les **ID** présent dans la table **BDD**. Vous pouvez vous connecter par défaut avec l'id suivant.
